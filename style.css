@@ -1,3 +1,4 @@
+/* Reset & Base */
 * {
   margin: 0;
   padding: 0;
@@ -8,42 +9,76 @@ html, body {
   width: 100%;
   height: 100%;
   font-family: 'Courier New', Courier, monospace;
-  background-color: black;
-  overflow: hidden;
+  background-color: #000;
   color: #00ffee;
+  overflow: hidden;
 }
 
-/* Stage layout */
+/* Utility Classes */
+.hidden {
+  display: none !important;
+}
+
+/* ==========================
+   Layouts
+========================== */
+
+/* Starfield Canvas (Background Layer) */
+#stars,
+#confettiCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Stage (Overlay Layer) */
 .stage {
   position: absolute;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   display: none;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   text-align: center;
   background: rgba(0, 0, 0, 0.85);
   z-index: 2;
 }
 
-/* Starfield canvas behind all */
-#stars {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  z-index: 0;
+/* Cutscene */
+#cutscene video {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 1;
 }
 
-/* Glitch Text Animation */
+#cutscene .overlay-text {
+  z-index: 2;
+  color: #fff;
+  font-size: 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 10px;
+  animation: fadeIn 3s ease-in;
+}
+
+/* ==========================
+   Text Effects
+========================== */
+
+/* Glitch Effect */
 .glitch {
-  color: #00ffee;
   position: relative;
   font-size: 2rem;
+  color: #00ffee;
 }
+
 .glitch::before,
 .glitch::after {
   content: attr(data-text);
@@ -53,25 +88,27 @@ html, body {
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
 }
+
 .glitch::before {
-  animation: glitchTop 2s infinite linear;
   color: #ff00ff;
+  animation: glitchTop 2s infinite linear;
 }
+
 .glitch::after {
-  animation: glitchBottom 1.5s infinite linear;
   color: #00ffff;
+  animation: glitchBottom 1.5s infinite linear;
 }
+
 @keyframes glitchTop {
-  0% { clip: rect(0, 900px, 0, 0); }
+  0%, 100% { clip: rect(0, 900px, 0, 0); }
   10% { clip: rect(10px, 900px, 60px, 0); }
   20% { clip: rect(85px, 900px, 90px, 0); }
-  100% { clip: rect(0, 900px, 0, 0); }
 }
+
 @keyframes glitchBottom {
-  0% { clip: rect(0, 900px, 0, 0); }
+  0%, 100% { clip: rect(0, 900px, 0, 0); }
   10% { clip: rect(85px, 900px, 90px, 0); }
   20% { clip: rect(10px, 900px, 60px, 0); }
-  100% { clip: rect(0, 900px, 0, 0); }
 }
 
 /* Terminal Style */
@@ -80,8 +117,9 @@ html, body {
   color: #00ffee;
   margin-bottom: 0.5rem;
 }
-input[type="password"],
-input[type="text"] {
+
+input[type="text"],
+input[type="password"] {
   border: none;
   background: transparent;
   border-bottom: 2px solid #00ffee;
@@ -91,101 +129,89 @@ input[type="text"] {
   margin-top: 1rem;
   padding: 0.5rem;
 }
+
 .error-text {
   color: red;
   margin-top: 1rem;
 }
 
-/* Cutscene Overlay */
-#cutscene video {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: 1;
-}
-#cutscene .overlay-text {
-  z-index: 2;
-  color: white;
-  font-size: 2rem;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 2rem;
-  border-radius: 10px;
-  animation: fadeIn 3s ease-in;
-}
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
 /* Celebration Neon Text */
 .neon-pulse {
+  font-size: 3rem;
   color: #ff99cc;
   text-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc, 0 0 40px #ff00cc;
   animation: pulseGlow 1.5s infinite;
-  font-size: 3rem;
 }
+
 @keyframes pulseGlow {
-  0%, 100% { text-shadow: 0 0 10px #ff00cc; }
-  50% { text-shadow: 0 0 30px #ff00cc, 0 0 50px #ff99ff; }
+  0%, 100% {
+    text-shadow: 0 0 10px #ff00cc;
+  }
+  50% {
+    text-shadow: 0 0 30px #ff00cc, 0 0 50px #ff99ff;
+  }
 }
 
-/* Confetti canvas */
-#confettiCanvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Chatbox (AI Assistant) */
-#chatbox {
-  width: 90%;
-  max-width: 700px;
-  height: 300px;
-  background: #111;
-  border: 2px solid #0ff;
-  overflow-y: auto;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  color: #0ff;
-}
-.msg {
-  margin: 0.5rem 0;
-  text-align: left;
-}
-#assistant input {
-  width: 300px;
-  background: black;
-  color: #0ff;
-  border: 1px solid #0ff;
-  padding: 0.5rem;
-}
-
-/* Grand Finale */
+/* Finale Text */
 #finale .finale-text {
   font-size: 3rem;
   color: #ff0;
   text-shadow: 0 0 20px #ff0, 0 0 60px #ff9900;
   animation: glowFade 3s ease-in-out infinite;
 }
+
 @keyframes glowFade {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
 }
 
+/* ==========================
+   Chatbox / Assistant
+========================== */
+#chatbox {
+  width: 90%;
+  max-width: 700px;
+  height: 300px;
+  background: #111;
+  border: 2px solid #0ff;
+  color: #0ff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  overflow-y: auto;
+}
+
+.msg {
+  margin: 0.5rem 0;
+  text-align: left;
+}
+
+#assistant input {
+  width: 300px;
+  padding: 0.5rem;
+  background: #000;
+  color: #0ff;
+  border: 1px solid #0ff;
+}
+
+/* ==========================
+   Buttons
+========================== */
 button {
   margin-top: 1.5rem;
   padding: 10px 20px;
-  background: #00ffee;
-  border: none;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 5px;
   font-size: 1rem;
+  font-weight: bold;
+  background: #00ffee;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ==========================
+   Animations
+========================== */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
