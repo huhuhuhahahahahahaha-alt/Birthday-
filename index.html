@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎉 Surprise for Ma'am Joy B. Ballucas 🎉</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Starfield Background -->
+  <canvas id="stars"></canvas>
+
+  <!-- Stage: Loader -->
+  <div id="loader" class="stage">
+    <h1 class="glitch" data-text="Initializing Galactic Protocols...">Initializing Galactic Protocols...</h1>
+  </div>
+
+  <!-- Stage: Terminal -->
+  <div id="terminal" class="stage">
+    <pre class="terminal-text">💻 ACCESS TERMINAL: JOY.BALLUCAS-SR-01</pre>
+    <pre class="terminal-text">Initializing system logs...</pre>
+    <div id="bootLogs">
+      <pre>> Boot sequence start...</pre>
+      <pre>> AI Core: <span class="glow">Active</span></pre>
+      <pre>> Uplink to HQ: <span class="glow">Established</span></pre>
+      <pre>> 🎉 Birthday Protocols: <span class="glow">Enabled</span></pre>
+    </div>
+    <pre class="terminal-text">Enter Secret Code to Proceed:</pre>
+    <input type="password" id="codeInput" placeholder="Enter code..." />
+    <pre id="error" class="error-text"></pre>
+  </div>
+
+  <!-- Stage: Cutscene -->
+  <div id="cutscene" class="stage">
+    <video id="cutsceneVideo" src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay muted playsinline></video>
+    <div class="overlay-text">Captain Joy B. Ballucas, your mission awaits...</div>
+  </div>
+
+  <!-- Stage: Celebration -->
+  <div id="celebration" class="stage">
+    <canvas id="confettiCanvas"></canvas>
+    <h1 class="neon-pulse">🎉 Happy Birthday Ma’am Joy! 🎉</h1>
+    <audio autoplay loop>
+      <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mp3">
+    </audio>
+    <button onclick="nextStage('assistant')">Continue ➡️</button>
+  </div>
+
+  <!-- Stage: AI Assistant -->
+  <div id="assistant" class="stage">
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Type something..." />
+  </div>
+
+  <!-- Stage: Grand Finale -->
+  <div id="finale" class="stage">
+    <h1 class="finale-text">🌟 Thank you, Ma’am Joy 🌟</h1>
+    <p>May your journey through this universe continue with brilliance and love.</p>
+    <button onclick="replay()">🔁 Replay</button>
+  </div>
+
+  <!-- Sound FX -->
+  <audio id="unlockSound" src="https://assets.mixkit.co/sfx/preview/mixkit-interface-click-1126.mp3"></audio>
+  <audio id="confettiSound" src="https://assets.mixkit.co/sfx/preview/mixkit-magical-appearance-628.mp3"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
